@@ -13,7 +13,6 @@ interface AppState {
   currentAsset: Asset;
   orderBook: ParsedOrderBook | null;
   trades: Trade[];
-  lastOrderMessage: string;
   selectedOrder: SelectedOrder | null;
 }
 
@@ -21,14 +20,12 @@ type Action =
   | { type: "SET_ASSET"; payload: Asset }
   | { type: "SET_ORDERBOOK"; payload: ParsedOrderBook }
   | { type: "ADD_TRADE"; payload: Trade }
-  | { type: "SET_SELECTED_ORDER"; payload: SelectedOrder | null }
-  | { type: "SET_LAST_ORDER_MESSAGE"; payload: string };
+  | { type: "SET_SELECTED_ORDER"; payload: SelectedOrder | null };
 
 const initialState: AppState = {
   currentAsset: "BTC",
   orderBook: null,
   trades: [],
-  lastOrderMessage: "",
   selectedOrder: null,
 };
 
@@ -45,14 +42,11 @@ const reducer = (state: AppState, action: Action): AppState => {
     case "SET_ASSET":
       return { ...state, currentAsset: action.payload };
     case "SET_ORDERBOOK":
-      console.log("SET_ORDERBOOK");
       return { ...state, orderBook: action.payload };
     case "ADD_TRADE":
       return { ...state, trades: [action.payload, ...state.trades] };
     case "SET_SELECTED_ORDER":
       return { ...state, selectedOrder: action.payload };
-    case "SET_LAST_ORDER_MESSAGE":
-      return { ...state, lastOrderMessage: action.payload };
     default:
       return state;
   }
@@ -62,7 +56,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state, "state");
   // Fetch orderbook on mount and when currentAsset changes
   useEffect(() => {
     const loadOrderBook = async () => {
@@ -82,16 +75,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({
     try {
       const trade: Trade = await apiPlaceOrder(order);
       dispatch({ type: "ADD_TRADE", payload: trade });
-      dispatch({
-        type: "SET_LAST_ORDER_MESSAGE",
-        payload: "Order placed successfully",
-      });
     } catch (err: any) {
       console.error(err);
-      dispatch({
-        type: "SET_LAST_ORDER_MESSAGE",
-        payload: err.message || "Failed to place order",
-      });
     }
   };
 

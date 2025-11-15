@@ -16,7 +16,6 @@ interface TradesTableProps {
   data: Trade[];
   height?: number;
   hover?: boolean;
-  onRowClick: (trade: Trade) => void;
 }
 
 const TradesTable: React.FC<TradesTableProps> = ({
@@ -24,7 +23,6 @@ const TradesTable: React.FC<TradesTableProps> = ({
   data,
   height = 600,
   hover = true,
-  onRowClick,
 }) => {
   return (
     <TableContainer
@@ -51,7 +49,6 @@ const TradesTable: React.FC<TradesTableProps> = ({
               <CustomTableRow
                 key={row.id}
                 hover={hover}
-                onDoubleClick={() => onRowClick(row)}
               >
                 {columns.map((col) => (
                   <CustomTableCell

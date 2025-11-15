@@ -37,7 +37,7 @@ const OrderForm = () => {
   }, [order.type, price, quantity, marketNotional]);
 
   const isBtnDisabled = Object.values(order).some(
-    (value) => value === "" || value === null || value === undefined  
+    (value) => value === "" || value === null || value === undefined
   );
 
   // 1️⃣ Effect for type changes (LIMIT <-> MARKET)
@@ -128,13 +128,15 @@ const OrderForm = () => {
       </Grid>
       <Box sx={{ padding: "12px" }}>
         <Tooltip title="Double Click to execute">
-          <CustomButton
-            side={side}
-            onDoubleClick={handleSendOrder}
-            disabled={isBtnDisabled}
-          >
-            {order.side === 0 ? "Buy " : "Sell "} {asset}
-          </CustomButton>
+          <span>
+            <CustomButton
+              side={side}
+              onDoubleClick={handleSendOrder}
+              disabled={isBtnDisabled}
+            >
+              {order.side === 0 ? "Buy " : "Sell "} {asset}
+            </CustomButton>
+          </span>
         </Tooltip>
       </Box>
     </Paper>

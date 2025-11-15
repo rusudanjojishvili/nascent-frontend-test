@@ -18,7 +18,6 @@ export function useMarketCalculator(
      const sortedBook = [...orderBook].sort((a, b) =>
       side === "BUY" ? a.price - b.price : b.price - a.price
     );
-    console.log(sortedBook, "sortedBook");
     let remaining = quantity;
     let totalCost = 0;
 

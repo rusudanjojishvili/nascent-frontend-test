@@ -16,7 +16,6 @@ export const sendOrder = async (
     };
 
     const response = await placeOrder(payload);
-    console.log("Order placed:", response);
     return response;
   } catch (err) {
     console.error("Failed to place order", err);
@@ -50,4 +49,3 @@ export const calcLimitNotional = (price: number, quantity: number) => {
 };
 
 export const formatSide = (side: 0 | 1) => (side === 0 ? "BUY" : "SELL");
-

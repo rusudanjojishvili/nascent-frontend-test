@@ -12,7 +12,6 @@ const MidMarketPrice = () => {
   const midMarketPrice = (bestAsk + bestBid) / 2;
   const spread = bestAsk - bestBid;
   const spreadDisplay = spread.toFixed(2);
-  console.log(midMarketPrice, spread, "midmarketPrice");
 
   return (
     <Grid

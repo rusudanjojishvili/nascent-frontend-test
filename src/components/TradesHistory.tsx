@@ -6,7 +6,6 @@ import WidgetHeader from "./WidgetsHeader";
 
 const TradesHistory = () => {
   const { state } = useAppContext();
-  console.log(state.trades, "trades");
   return (
     <Grid container direction="column" sx={{ overflow: "auto" }}>
       <Paper elevation={0} sx={{ borderRadius: "4px" }}>
@@ -16,7 +15,6 @@ const TradesHistory = () => {
             columns={tradeColumns}
             data={state.trades}
             height={300}
-            onRowClick={(trade) => console.log("Selected trade:", trade)}
           />
         ) : (
           <Grid
