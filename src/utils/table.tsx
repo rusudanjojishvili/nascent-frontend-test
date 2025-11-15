@@ -55,10 +55,7 @@ export const tradeColumns: TradesColumn[] = [
     label: "Notional",
     align: "right",
     render: (value) =>
-      Number(value).toLocaleString(undefined, {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }),
+      Number(value).toFixed(6)
   },
   {
     key: "timestamp",

@@ -34,6 +34,32 @@ Market order behavior:
 For MARKET orders, the price is not sent to the backend.
 Instead, an average execution price (VWAP) is calculated and shown to the user in a disabled input for reference only.
 
+-- OrderForm Price Behavior
+
+The OrderForm component automatically manages the price field based on the selected order type and market data. The behavior follows these rules:
+
+--Switching to MARKET orders
+
+When the user changes the order type to MARKET, the price field is automatically filled with the current marketNotional.price.
+
+If the marketNotional.price changes (e.g., due to quantity changes), the price updates automatically while the type is still MARKET.
+
+--Switching to LIMIT orders
+
+When the user changes the order type to LIMIT, the price field is cleared to allow manual entry.
+
+The price is not cleared or overwritten when the user updates the quantity for a LIMIT order.
+
+--Changing quantity
+
+For MARKET orders, changing the quantity recalculates marketNotional and updates the price accordingly.
+
+For LIMIT orders, changing the quantity does not affect the price; the user-entered value is preserved.
+
+--Selected orders from the order book
+
+If the trader selects an order from the order book (state.selectedOrder), the form respects the selected order values and does not automatically overwrite price when order.type or quantity changes.
+
 --Interaction With Order Book Table:
 
 When the user clicks on a row in the order book:
@@ -41,9 +67,7 @@ When the user clicks on a row in the order book:
 Order execution:
 A LIMIT order is immediately created and executed using:
 
-the quantity from the order form, and
-
-the price from the selected order book row.
+The quantity from the order form, and the price from the selected order book row.
 
 Form auto-fill:
 The order form inputs are automatically populated with the selected row’s values.

@@ -37,18 +37,38 @@ const OrderForm = () => {
   }, [order.type, price, quantity, marketNotional]);
 
   const isBtnDisabled = Object.values(order).some(
-    (value) => value === "" || value === null || value === undefined
+    (value) => value === "" || value === null || value === undefined  
   );
 
+  // 1️⃣ Effect for type changes (LIMIT <-> MARKET)
   useEffect(() => {
-    // let a trader switch from 'LIMIT' to 'MARKET'
-    if (!state.selectedOrder) {
-      setOrder((prev) => ({
-        ...prev,
-        price: order.type === "MARKET" ? marketNotional?.price ?? "" : "",
-      }));
-    }
-  }, [order.type, marketNotional?.price]);
+    if (state.selectedOrder) return;
+
+    setOrder((prev) => {
+      if (order.type === "MARKET") {
+        // switching to MARKET → fill with marketNotional price
+        return { ...prev, price: marketNotional?.price ?? "" };
+      }
+
+      if (order.type === "LIMIT") {
+        // switching to LIMIT → empty price
+        return { ...prev, price: "" };
+      }
+
+      return prev;
+    });
+  }, [order.type]);
+
+  // 2️⃣ Effect for updating MARKET price when marketNotional changes
+  useEffect(() => {
+    if (state.selectedOrder) return;
+    if (order.type !== "MARKET") return;
+
+    setOrder((prev) => ({
+      ...prev,
+      price: marketNotional?.price ?? "",
+    }));
+  }, [marketNotional?.price]);
 
   useEffect(() => {
     // let a trader make a trade directly from the order book

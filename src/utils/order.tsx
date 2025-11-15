@@ -46,7 +46,7 @@ export const calcMarketNotional = (asks: Order[], amountToBuy: number) => {
 };
 
 export const calcLimitNotional = (price: number, quantity: number) => {
-  return Number((price * quantity).toFixed(4));
+  return Number(price * quantity);
 };
 
 export const formatSide = (side: 0 | 1) => (side === 0 ? "BUY" : "SELL");
