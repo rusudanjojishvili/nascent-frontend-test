@@ -1,4 +1,4 @@
-import { Order, ParsedOrderBook, RawOrderBook } from "../types";
+import { ParsedOrderBook, RawOrderBook } from "../types";
 import { Column } from "../types/table";
 
 export const columns: Column[] = [

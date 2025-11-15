@@ -1,12 +1,8 @@
-import { Box, Grid, InputAdornment, Paper, Tabs } from "@mui/material";
-import { CustomTextField } from "./ui/CustomTextField";
-import { useEffect, useMemo, useState } from "react";
+import { Box, Grid, Paper } from "@mui/material";
+import { useEffect, useMemo } from "react";
 import { CustomButton } from "./ui/CustomButton";
-import { OrderFormState } from "../types";
 import { useAppContext } from "../context/AppContext";
-import { CustomTab } from "./ui/CustomTab";
 import { calcLimitNotional, formatSide } from "../utils/order";
-import { CustomTextButton } from "./ui/CustomTextButton";
 import { useMarketCalculator } from "../hooks/useMarketCalculator";
 import { useOrderPlacement } from "../hooks/useOrderPlacement";
 import { useOrderForm } from "../hooks/useOrderForm";

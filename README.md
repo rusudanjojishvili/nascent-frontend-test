@@ -4,7 +4,7 @@
 Please thoroughly review the provided Assignment requirements PDF for the description.
 
 ## Candidate Notes
-Please add any notes here.
+This frontend crypto trading platform is built with React + TypeScript. Global state is managed using React useContext, which is sufficient for the project’s scale and keeps the implementation simple. Material UI (MUI) was chosen for UI components because it provides accessible, ready-made elements and leverages my expertise for consistency and maintainability. Axios handles HTTP requests due to its clear syntax and promise-based design, simplifying asynchronous code. The project emphasizes clarity, scalability, and reusable layout as well as ui components (CustomButton, CustomTextField), with careful handling of numeric precision in forms. 
 
 ## About the Template
 

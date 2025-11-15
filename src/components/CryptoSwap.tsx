@@ -1,10 +1,8 @@
-import React from "react";
 import { Asset } from "../types";
 import { useAppContext } from "../context/AppContext";
 import {
   FormControl,
   Grid,
-  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,

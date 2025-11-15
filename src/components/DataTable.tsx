@@ -9,7 +9,7 @@ import {
 import { Column } from "../types/table";
 import CustomTableRow from "./ui/CustomTableRow";
 import CustomTableCell from "./ui/CustomTableCell";
-import { OrderFormState, SelectedOrder } from "../types";
+import { SelectedOrder } from "../types";
 
 interface DataTableProps {
   columns: Column[];
