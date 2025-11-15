@@ -109,7 +109,7 @@ const OrderForm = () => {
       <Box sx={{ padding: "12px" }}>
         <CustomButton
           side={side}
-          onClick={handleSendOrder}
+          onDoubleClick={handleSendOrder}
           disabled={isBtnDisabled}
         >
           {order.side === 0 ? "Buy " : "Sell "} {asset}
