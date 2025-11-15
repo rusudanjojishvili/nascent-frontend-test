@@ -14,19 +14,22 @@ interface AppState {
   orderBook: ParsedOrderBook | null;
   trades: Trade[];
   selectedOrder: SelectedOrder | null;
+  errorMessage: string;
 }
 
 type Action =
   | { type: "SET_ASSET"; payload: Asset }
   | { type: "SET_ORDERBOOK"; payload: ParsedOrderBook }
   | { type: "ADD_TRADE"; payload: Trade }
-  | { type: "SET_SELECTED_ORDER"; payload: SelectedOrder | null };
+  | { type: "SET_SELECTED_ORDER"; payload: SelectedOrder | null }
+  | { type: "SET_ORDER_ERROR"; payload: string };
 
 const initialState: AppState = {
   currentAsset: "BTC",
   orderBook: null,
   trades: [],
   selectedOrder: null,
+  errorMessage: "",
 };
 
 interface AppContextProps {
@@ -47,6 +50,8 @@ const reducer = (state: AppState, action: Action): AppState => {
       return { ...state, trades: [action.payload, ...state.trades] };
     case "SET_SELECTED_ORDER":
       return { ...state, selectedOrder: action.payload };
+    case "SET_ORDER_ERROR":
+      return { ...state, errorMessage: action.payload };
     default:
       return state;
   }

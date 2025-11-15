@@ -1,27 +1,21 @@
 import { placeOrder } from "../api/orderBook";
 import { Order, OrderRequest, Trade } from "../types";
 
-export const sendOrder = async (
-  orderState: OrderRequest
-): Promise<Trade | void> => {
-  try {
-    const { asset, side, type, quantity, price, notional } = orderState;
-    const payload: OrderRequest = {
-      asset: asset,
-      side,
-      type: type.toUpperCase() as "LIMIT" | "MARKET",
-      quantity,
-      price,
-      notional,
-    };
+export const sendOrder = async (orderState: OrderRequest): Promise<Trade> => {
+  const { asset, side, type, quantity, price, notional } = orderState;
 
-    const response = await placeOrder(payload);
-    return response;
-  } catch (err) {
-    console.error("Failed to place order", err);
-  }
+  const payload: OrderRequest = {
+    asset,
+    side,
+    type: type.toUpperCase() as "LIMIT" | "MARKET",
+    quantity,
+    price,
+    notional,
+  };
+
+  
+  return await placeOrder(payload);
 };
-
 export const calcMarketNotional = (asks: Order[], amountToBuy: number) => {
   let remaining = amountToBuy;
   let totalCost = 0;

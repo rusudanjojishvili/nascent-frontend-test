@@ -1,4 +1,3 @@
-import React from "react";
 import { CustomTextField } from "../ui/CustomTextField";
 import { InputAdornment } from "@mui/material";
 import { Asset, OrderFormState } from "../../types";
@@ -47,7 +46,7 @@ const OrderFields = ({ order, updateOrder, notional, asset }: PropsType) => {
         }}
       />
       <CustomTextField
-        value={notional}
+        value={notional > 0? notional.toFixed(12) : notional}
         disabled
         slotProps={{
           input: {

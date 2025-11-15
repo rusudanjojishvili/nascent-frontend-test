@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Tooltip } from "@mui/material";
+import { Box, Grid, Paper, Tooltip, Typography } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { CustomButton } from "./ui/CustomButton";
 import { useAppContext } from "../context/AppContext";
@@ -18,7 +18,6 @@ const OrderForm = () => {
     quantity: 0.000001,
     price: "",
   });
-
   const asset = state.currentAsset;
   const side = useMemo(() => formatSide(order.side), [order.side]);
   const price = useMemo(() => Number(order.price), [order.price]);
@@ -36,11 +35,15 @@ const OrderForm = () => {
       : marketNotional?.notional ?? 0;
   }, [order.type, price, quantity, marketNotional]);
 
-  const isBtnDisabled = Object.values(order).some(
-    (value) => value === "" || value === null || value === undefined
-  );
+  const isBtnDisabled = Object.entries(order).some(([key, value]) => {
+    if (value === "" || value === null || value === undefined) return true;
 
-  // 1️⃣ Effect for type changes (LIMIT <-> MARKET)
+    if (key !== "side" && value <= 0) return true;
+
+    return false;
+  });
+
+  // Effect for type changes (LIMIT <-> MARKET)
   useEffect(() => {
     if (state.selectedOrder) return;
 
@@ -59,7 +62,7 @@ const OrderForm = () => {
     });
   }, [order.type]);
 
-  // 2️⃣ Effect for updating MARKET price when marketNotional changes
+  // Effect for updating MARKET price when marketNotional changes
   useEffect(() => {
     if (state.selectedOrder) return;
     if (order.type !== "MARKET") return;
@@ -117,7 +120,12 @@ const OrderForm = () => {
   return (
     <Paper elevation={0} sx={{ width: "100%" }}>
       <OrderSideTabs value={order.side} onChange={handleTabChange} />
-      <Grid container direction={"column"} sx={{ padding: "20px" }} spacing={2}>
+      <Grid
+        container
+        direction={"column"}
+        sx={{ padding: "20px", paddingBottom: 0 }}
+        spacing={2}
+      >
         <OrderTypeSwitch type={order.type} updateOrder={updateOrder} />
         <OrderFields
           order={order}
@@ -127,8 +135,23 @@ const OrderForm = () => {
         />
       </Grid>
       <Box sx={{ padding: "12px" }}>
-        <Tooltip title="Double Click to execute">
-          <span>
+        <Typography
+          sx={(theme) => ({
+            color: theme.palette.error.main,
+            height: "30px",
+          })}
+        >
+          {state.errorMessage}
+        </Typography>
+        <Tooltip
+          title={
+            isBtnDisabled
+              ? "invalid values: enter valid values to execute"
+              : "Double Click to execute"
+          }
+          arrow
+        >
+          <div>
             <CustomButton
               side={side}
               onDoubleClick={handleSendOrder}
@@ -136,7 +159,7 @@ const OrderForm = () => {
             >
               {order.side === 0 ? "Buy " : "Sell "} {asset}
             </CustomButton>
-          </span>
+          </div>
         </Tooltip>
       </Box>
     </Paper>
