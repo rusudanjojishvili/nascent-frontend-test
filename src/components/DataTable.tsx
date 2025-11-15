@@ -52,6 +52,8 @@ const DataTable: React.FC<DataTableProps> = ({
           {data.map((row, rowIndex) => (
             <CustomTableRow
               key={rowIndex}
+              title="Double click to execute"
+              sx={{ cursor: "pointer" }}
               hover={hover}
               onDoubleClick={() =>
                 onRowClick({

@@ -1,6 +1,7 @@
 import { Asset } from "../types";
 import { useAppContext } from "../context/AppContext";
 import {
+  Box,
   FormControl,
   Grid,
   MenuItem,
@@ -8,6 +9,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 import { CustomInput } from "./ui/CustomInput";
+import { cryptoList } from "../utils/cryptoList";
 
 const CryptoSwap = () => {
   const { state, dispatch } = useAppContext();
@@ -26,9 +28,38 @@ const CryptoSwap = () => {
           value={state.currentAsset}
           onChange={handleChange}
           input={<CustomInput />}
+          renderValue={(selected) => {
+            const item = cryptoList.find((c) => c.symbol === selected);
+            if (!item) return selected;
+
+            return (
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <img
+                  src={item.icon}
+                  alt={item.symbol}
+                  width={20}
+                  height={20}
+                  style={{ borderRadius: "50%" }}
+                />
+                {item.symbol}
+              </Box>
+            );
+          }}
         >
-          <MenuItem value={"BTC"}>BTC</MenuItem>
-          <MenuItem value={"ETH"}>ETH</MenuItem>
+          {cryptoList.map((coin) => (
+            <MenuItem key={coin.symbol} value={coin.symbol}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <img
+                  src={coin.icon}
+                  alt={coin.symbol}
+                  width={20}
+                  height={20}
+                  style={{ borderRadius: "50%" }}
+                />
+                {coin.symbol}
+              </Box>
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Grid>

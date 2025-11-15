@@ -52,7 +52,6 @@ const TradesTable: React.FC<TradesTableProps> = ({
                 key={row.id}
                 hover={hover}
                 onDoubleClick={() => onRowClick(row)}
-                sx={{ cursor: "pointer" }}
               >
                 {columns.map((col) => (
                   <CustomTableCell

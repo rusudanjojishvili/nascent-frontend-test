@@ -23,7 +23,7 @@ const OrderFields = ({ order, updateOrder, notional, asset }: PropsType) => {
           input: {
             startAdornment: (
               <InputAdornment position="start">
-                {order.type} PRICE
+                {order.type === "LIMIT" ? "LIMIT PRICE" : "AVG PRICE(VWAP)"}
               </InputAdornment>
             ),
             endAdornment: <InputAdornment position="end">USD</InputAdornment>,

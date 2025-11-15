@@ -1,4 +1,4 @@
-import { Box, Grid, Paper } from "@mui/material";
+import { Box, Grid, Paper, Tooltip } from "@mui/material";
 import { useEffect, useMemo } from "react";
 import { CustomButton } from "./ui/CustomButton";
 import { useAppContext } from "../context/AppContext";
@@ -107,13 +107,15 @@ const OrderForm = () => {
         />
       </Grid>
       <Box sx={{ padding: "12px" }}>
-        <CustomButton
-          side={side}
-          onDoubleClick={handleSendOrder}
-          disabled={isBtnDisabled}
-        >
-          {order.side === 0 ? "Buy " : "Sell "} {asset}
-        </CustomButton>
+        <Tooltip title="Double Click to execute">
+          <CustomButton
+            side={side}
+            onDoubleClick={handleSendOrder}
+            disabled={isBtnDisabled}
+          >
+            {order.side === 0 ? "Buy " : "Sell "} {asset}
+          </CustomButton>
+        </Tooltip>
       </Box>
     </Paper>
   );

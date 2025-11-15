@@ -1,11 +1,7 @@
-import { styled, TableRow, tableRowClasses } from "@mui/material";
+import { styled, TableRow } from "@mui/material";
 
 const CustomTableRow = styled(TableRow)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  cursor: "pointer",
-  [`&.${tableRowClasses.head}`]: {
-    cursor: "default"
-  },
+  backgroundColor: theme.palette.background.paper
 }));
 
 export default CustomTableRow;
