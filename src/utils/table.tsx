@@ -1,5 +1,5 @@
 import { ParsedOrderBook, RawOrderBook } from "../types";
-import { Column } from "../types/table";
+import { Column, TradesColumn } from "../types/table";
 
 export const columns: Column[] = [
   {
@@ -32,3 +32,37 @@ export const parseOrderBook = (raw: RawOrderBook): ParsedOrderBook => ({
     quantity: parseFloat(qty),
   })),
 });
+
+export const tradeColumns: TradesColumn[] = [
+  { key: "asset", label: "Asset" },
+  { key: "side", label: "Side" },
+  { key: "type", label: "Type" },
+  { key: "quantity", label: "Quantity", align: "right" },
+  {
+    key: "price",
+    label: "Price",
+    align: "right",
+    render: (value, row) =>
+      row.type === "MARKET" && !value
+        ? "Market"
+        : Number(value).toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 8,
+          }),
+  },
+  {
+    key: "notional",
+    label: "Notional",
+    align: "right",
+    render: (value) =>
+      Number(value).toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }),
+  },
+  {
+    key: "timestamp",
+    label: "Time",
+    render: (value) => new Date(value).toLocaleString(),
+  },
+];
