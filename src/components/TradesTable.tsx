@@ -14,7 +14,7 @@ import { TradesColumn } from "../types/table";
 interface TradesTableProps {
   columns: TradesColumn[];
   data: Trade[];
-  maxHeight?: number;
+  height?: number;
   hover?: boolean;
   onRowClick: (trade: Trade) => void;
 }
@@ -22,7 +22,7 @@ interface TradesTableProps {
 const TradesTable: React.FC<TradesTableProps> = ({
   columns,
   data,
-  maxHeight = 600,
+  height = 600,
   hover = true,
   onRowClick,
 }) => {
@@ -30,7 +30,7 @@ const TradesTable: React.FC<TradesTableProps> = ({
     <TableContainer
       component={Paper}
       elevation={0}
-      sx={{ maxHeight, borderRadius: "4px", overflowY: "auto" }}
+      sx={{ height, borderRadius: "4px", overflowY: "auto" }}
     >
       <Table stickyHeader size="small">
         <TableHead>

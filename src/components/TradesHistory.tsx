@@ -2,6 +2,7 @@ import { useAppContext } from "../context/AppContext";
 import { Grid, Paper, Typography } from "@mui/material";
 import TradesTable from "./TradesTable";
 import { tradeColumns } from "../utils/table";
+import WidgetHeader from "./WidgetsHeader";
 
 const TradesHistory = () => {
   const { state } = useAppContext();
@@ -9,11 +10,12 @@ const TradesHistory = () => {
   return (
     <Grid container direction="column" sx={{ overflow: "auto" }}>
       <Paper elevation={0} sx={{ borderRadius: "4px" }}>
+        <WidgetHeader title="Trades History" />
         {state.trades?.length ? (
           <TradesTable
             columns={tradeColumns}
             data={state.trades}
-            maxHeight={300}
+            height={300}
             onRowClick={(trade) => console.log("Selected trade:", trade)}
           />
         ) : (

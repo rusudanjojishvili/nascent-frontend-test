@@ -4,6 +4,7 @@ import { Grid, Paper } from "@mui/material";
 import MidMarketPrice from "./MidMarketPrice";
 import { SelectedOrder } from "../types";
 import { useAppContext } from "../context/AppContext";
+import WidgetHeader from "./WidgetsHeader";
 
 const OrderBook = () => {
   const { state, dispatch } = useAppContext();
@@ -15,6 +16,7 @@ const OrderBook = () => {
   return (
     <Grid container direction="column">
       <Paper elevation={0} sx={{ borderRadius: "4px" }}>
+        <WidgetHeader title="Order Book" />
         <Asks setSelectedOrder={setSelectedOrder} asks={asks} />
         <MidMarketPrice />
         <Bids setSelectedOrder={setSelectedOrder} bids={bids} />
