@@ -13,6 +13,6 @@ export const fetchOrderBook = async (asset: Asset): Promise<ParsedOrderBook> => 
 export const placeOrder = async (
     order: OrderRequest
 ): Promise<Trade> => {
-    const response = await axios.post(`${API_URL}//trade`, order);
+    const response = await axios.post(`${API_URL}/trade`, order);
     return response.data;
 };
