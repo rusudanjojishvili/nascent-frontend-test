@@ -1,6 +1,6 @@
 import Bids from "./Bids";
 import Asks from "./Asks";
-import { Grid, Paper } from "@mui/material";
+import { CircularProgress, Grid, Paper, Typography } from "@mui/material";
 import MidMarketPrice from "./MidMarketPrice";
 import { SelectedOrder } from "../types";
 import { useAppContext } from "../context/AppContext";
@@ -17,9 +17,24 @@ const OrderBook = () => {
     <Grid container direction="column">
       <Paper elevation={0} sx={{ borderRadius: "4px" }}>
         <WidgetHeader title="Order Book" />
-        <Asks setSelectedOrder={setSelectedOrder} asks={asks} />
-        <MidMarketPrice />
-        <Bids setSelectedOrder={setSelectedOrder} bids={bids} />
+        {state.orderBook ? (
+          <>
+            <Asks setSelectedOrder={setSelectedOrder} asks={asks} />
+            <MidMarketPrice />
+            <Bids setSelectedOrder={setSelectedOrder} bids={bids} />
+          </>
+        ) : (
+          <Grid
+            container
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              height: '85vh',
+            }}
+          >
+            <CircularProgress />
+          </Grid>
+        )}
       </Paper>
     </Grid>
   );
